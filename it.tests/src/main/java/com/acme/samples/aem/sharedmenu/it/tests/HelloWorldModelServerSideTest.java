@@ -3,9 +3,15 @@ package com.acme.samples.aem.sharedmenu.it.tests;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.junit.annotations.SlingAnnotationsTestRunner;
 import org.apache.sling.junit.annotations.TestReference;
 import org.apache.sling.settings.SlingSettingsService;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.acme.samples.aem.sharedmenu.core.models.HelloWorldModel;
@@ -19,13 +25,32 @@ import com.acme.samples.aem.sharedmenu.core.models.HelloWorldModel;
 public class HelloWorldModelServerSideTest {
 
     @TestReference
-    private HelloWorldModel hello;
+    private ResourceResolverFactory resourceResolverFactory;
 
     @TestReference
     private SlingSettingsService settings;
+    
+    private ResourceResolver resourceResolver;
 
+    @SuppressWarnings("deprecation")
+	@Before
+    public void setUp() throws LoginException {
+    	this.resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+    }
+    
+    @After
+    public void tearDown() {
+    	if (this.resourceResolver != null) {
+    		this.resourceResolver.close();
+    		this.resourceResolver = null;
+    	}
+    }
+    
     @Test
     public void testHelloWorldModelServerSide() throws Exception {
+    	Resource resource = this.resourceResolver.getResource("/content/samples-shared-menu");
+    	HelloWorldModel hello = resource.adaptTo(HelloWorldModel.class);
+    	
         assertNotNull(
                 "Expecting HelloWorldModel to be injected by Sling test runner",
                 hello);
