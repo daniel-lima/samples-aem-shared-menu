@@ -3,6 +3,5 @@
     <filter root="/apps/samples-shared-menu">
         <exclude pattern="/apps/samples-shared-menu/install" />
     </filter>
-    <filter root="/apps/sling" />
     <filter root="/etc/designs/samples-shared-menu"/>
 </workspaceFilter>
