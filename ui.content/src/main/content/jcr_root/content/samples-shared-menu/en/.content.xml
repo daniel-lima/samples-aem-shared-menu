@@ -12,10 +12,14 @@
         <title
             jcr:primaryType="nt:unstructured"
             sling:resourceType="samples-shared-menu/components/content/title"/>
-        <topnav
+        <topnavcontainer
             jcr:primaryType="nt:unstructured"
-            absParent="/content/samples-shared-menu"
-            sling:resourceType="samples-shared-menu/components/structure/topnav"/>
+            sling:resourceType="wcm/foundation/components/iparsys">
+			<topnav
+            	jcr:primaryType="nt:unstructured"
+            	absParent="/content/samples-shared-menu"
+            	sling:resourceType="samples-shared-menu/components/structure/topnav"/>
+        </topnavcontainer>            	
         <par
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/foundation/components/parsys">
