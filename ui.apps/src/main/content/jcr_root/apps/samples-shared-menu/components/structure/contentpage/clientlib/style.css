@@ -1,0 +1,3 @@
+.page__topnav .new.section {
+    display: none; /* remove extra spaces from Touch UI (iparsys included with wcmmode=disabled) */
+}
